@@ -12,7 +12,6 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +22,6 @@ import xm.cryptorecommendation.domain.CryptoData;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 /**
  * <h1>Add Two Numbers!</h1>
@@ -44,20 +41,25 @@ import org.apache.logging.log4j.LogManager;
 @EnableBatchProcessing
 public class BatchConfiguration {
 
-    private static final Logger logger = LogManager.getLogger(BatchConfiguration.class);
 
-    @Autowired
-    private JobBuilderFactory jobBuilderFactory;
-    @Autowired
-    private StepBuilderFactory stepBuilderFactory;
-    @Autowired
-    DataSource dataSource;
+    private final JobBuilderFactory jobBuilderFactory;
 
-    @Autowired
-    Listener listener;
+    private final  StepBuilderFactory stepBuilderFactory;
+
+    private   final DataSource dataSource;
+
+
+    private final  Listener listener;
 
     @Value("${csv.resource}")
     private String csvResource;
+
+    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, DataSource dataSource, Listener listener) {
+        this.jobBuilderFactory = jobBuilderFactory;
+        this.stepBuilderFactory = stepBuilderFactory;
+        this.dataSource = dataSource;
+        this.listener = listener;
+    }
 
     @Bean
     public JdbcBatchItemWriter<CryptoData> writer() {

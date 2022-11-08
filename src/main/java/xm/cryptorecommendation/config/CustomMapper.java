@@ -2,7 +2,6 @@ package xm.cryptorecommendation.config;
 
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
-import org.springframework.validation.BindException;
 import xm.cryptorecommendation.domain.CryptoData;
 
 import java.time.Instant;

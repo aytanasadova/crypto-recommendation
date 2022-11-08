@@ -1,11 +1,10 @@
 package xm.cryptorecommendation.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import xm.cryptorecommendation.helper.QuerySource;
 import xm.cryptorecommendation.domain.CryptoData;
+import xm.cryptorecommendation.helper.QuerySource;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,8 +12,12 @@ import java.util.List;
 @Repository
 public class CryptoDataRepositoryImpl implements CryptoDataRepository {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+
+    private  final  JdbcTemplate jdbcTemplate;
+
+    public CryptoDataRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public void clear() {
@@ -41,38 +44,40 @@ public class CryptoDataRepositoryImpl implements CryptoDataRepository {
     public List<CryptoData> listAllWithMaxPrice() {
         return jdbcTemplate.query(QuerySource.LIST_ALL_WITH_MAX_PRICE, new BeanPropertyRowMapper<>(CryptoData.class));
     }
+
     @Override
     public List<CryptoData> listAllWithNormalizedPrice() {
         return jdbcTemplate.query(QuerySource.LIST_ALL_WITH_NORMALIZED_PRICE, new BeanPropertyRowMapper<>(CryptoData.class));
     }
 
     @Override
-    public  CryptoData  getMinPriceByCryptoName(String name) {
-        return jdbcTemplate.queryForObject(QuerySource.GET_MIN_PRICE_FOR_CRYPTO,new BeanPropertyRowMapper<>(CryptoData.class), name);
+    public CryptoData getMinPriceByCryptoName(String name) {
+        return jdbcTemplate.queryForObject(QuerySource.GET_MIN_PRICE_FOR_CRYPTO, new BeanPropertyRowMapper<>(CryptoData.class), name);
     }
 
     @Override
     public CryptoData getMaxPriceByCryptoName(String name) {
-      return jdbcTemplate.queryForObject(QuerySource.GET_MAX_PRICE_FOR_CRYPTO,new BeanPropertyRowMapper<>(CryptoData.class), name);
+        return jdbcTemplate.queryForObject(QuerySource.GET_MAX_PRICE_FOR_CRYPTO, new BeanPropertyRowMapper<>(CryptoData.class), name);
     }
 
     @Override
     public CryptoData getOldestPriceByCryptoName(String name) {
-         return jdbcTemplate.queryForObject(QuerySource.GET_OLDEST_PRICE_FOR_CRYPTO,new BeanPropertyRowMapper<>(CryptoData.class), name);
+        return jdbcTemplate.queryForObject(QuerySource.GET_OLDEST_PRICE_FOR_CRYPTO, new BeanPropertyRowMapper<>(CryptoData.class), name);
     }
 
     @Override
     public CryptoData getNewestPriceByCryptoName(String name) {
-        return jdbcTemplate.queryForObject(QuerySource.GET_NEWEST_PRICE_FOR_CRYPTO,new BeanPropertyRowMapper<>(CryptoData.class), name);
-    }
-    @Override
-    public CryptoData  getByMaxNormalizedPriceByDate(LocalDate date) {
-        List<CryptoData> resultList=jdbcTemplate.query(QuerySource.LIST_BY_MAX_NORMALIZED_PRICE_BY_DATE,new BeanPropertyRowMapper<>(CryptoData.class), date);
-        return getFirstElementOfList(resultList) ;
+        return jdbcTemplate.queryForObject(QuerySource.GET_NEWEST_PRICE_FOR_CRYPTO, new BeanPropertyRowMapper<>(CryptoData.class), name);
     }
 
-     private CryptoData getFirstElementOfList( List<CryptoData> resultList){
-        return (resultList==null && resultList.isEmpty())?null:resultList.stream().findFirst().get();
-     }
+    @Override
+    public CryptoData getByMaxNormalizedPriceByDate(LocalDate date) {
+        List<CryptoData> resultList = jdbcTemplate.query(QuerySource.LIST_BY_MAX_NORMALIZED_PRICE_BY_DATE, new BeanPropertyRowMapper<>(CryptoData.class), date);
+        return getFirstElementOfList(resultList);
+    }
+
+    private CryptoData getFirstElementOfList(List<CryptoData> resultList) {
+        return (resultList == null || resultList.isEmpty()) ? null : resultList.stream().findFirst().get();
+    }
 
 }
