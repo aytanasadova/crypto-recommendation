@@ -61,7 +61,7 @@ public class BatchConfiguration {
 
     @Bean
     public MultiResourceItemReader<CryptoData> multiResourceItemReader() {
-        CustomMapper.counter=1;
+
         MultiResourceItemReader<CryptoData> resourceItemReader = new MultiResourceItemReader<CryptoData>();
         String directoryPath = "file:C:/files/*.csv";
         resourceItemReader.setResources(loadResourcesFromDirectory(directoryPath));
@@ -82,6 +82,7 @@ public class BatchConfiguration {
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Bean
     public FlatFileItemReader<CryptoData> reader() {
+        CustomMapper.counter=1;
         //Create reader instance
         FlatFileItemReader<CryptoData> reader = new FlatFileItemReader<CryptoData>();
         //Set number of lines to skips. Use it if file has header rows.

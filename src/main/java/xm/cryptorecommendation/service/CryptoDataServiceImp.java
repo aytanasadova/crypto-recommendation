@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import xm.cryptorecommendation.domain.CryptoData;
 import xm.cryptorecommendation.repository.CryptoDataRepository;
 
+import java.time.LocalDate;
 import java.util.List;
+
 @Service
 public class CryptoDataServiceImp implements CryptoDataService {
     @Autowired
@@ -33,12 +34,47 @@ public class CryptoDataServiceImp implements CryptoDataService {
         return generateResponseWithList(cryptoDataRepository.listAllWithMaxPrice());
     }
 
-
-    private ResponseEntity<?> generateResponseWithList(List<?> resultList ){
-        return resultList.isEmpty()?new ResponseEntity<>(resultList, HttpStatus.NO_CONTENT):new ResponseEntity<>(resultList, HttpStatus.OK);
+    @Override
+    public ResponseEntity<?> listAllWithNormalizedPrice() {
+        return generateResponseWithList(cryptoDataRepository.listAllWithNormalizedPrice());
     }
 
-    public  void clear(){
+
+    @Override
+    public ResponseEntity<?> getMinPriceByCryptoName(String name) {
+        return generateResponseWithObject(cryptoDataRepository.getMinPriceByCryptoName(name));
+    }
+
+    @Override
+    public ResponseEntity<?> getMaxPriceByCryptoName(String name) {
+        return generateResponseWithObject(cryptoDataRepository.getMaxPriceByCryptoName(name));
+    }
+
+    @Override
+    public ResponseEntity<?> getOldestPriceByCryptoName(String name) {
+        return generateResponseWithObject(cryptoDataRepository.getOldestPriceByCryptoName(name));
+    }
+
+    @Override
+    public ResponseEntity<?> getNewestPriceByCryptoName(String name) {
+        return generateResponseWithObject(cryptoDataRepository.getNewestPriceByCryptoName(name));
+    }
+
+    @Override
+    public ResponseEntity<?> getByMaxNormalizedPriceByDate(LocalDate date) {
+
+        return generateResponseWithObject(cryptoDataRepository.getByMaxNormalizedPriceByDate(date));
+    }
+
+    private ResponseEntity<?> generateResponseWithList(List<?> resultList) {
+        return (resultList == null || resultList.isEmpty()) ? new ResponseEntity<>(resultList, HttpStatus.NO_CONTENT) : new ResponseEntity<>(resultList, HttpStatus.OK);
+    }
+
+    private ResponseEntity<?> generateResponseWithObject(Object result) {
+        return result == null ? new ResponseEntity<>(null, HttpStatus.NO_CONTENT) : new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    public void clear() {
         cryptoDataRepository.clear();
     }
 }

@@ -23,6 +23,7 @@ public class SwaggerConfiguration {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("crypto-recommendation-methods")
+
                 .pathsToMatch("/**")
                 .build();
     }
