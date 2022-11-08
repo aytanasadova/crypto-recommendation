@@ -37,7 +37,7 @@ public class BatchConfiguration {
     public JdbcBatchItemWriter<CryptoData> writer() {
         JdbcBatchItemWriter<CryptoData> itemWriter = new JdbcBatchItemWriter<CryptoData>();
         itemWriter.setDataSource(dataSource);
-        itemWriter.setSql("INSERT INTO CRYPTO_DATA (timestamp, symbol, price) VALUES (:timestamp, :symbol, :price)");
+        itemWriter.setSql("INSERT INTO CRYPTO_DATA (timestamp, symbol, price,id) VALUES (:timestamp, :symbol, :price,:id)");
         itemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<CryptoData>());
         return itemWriter;
     }
@@ -61,6 +61,7 @@ public class BatchConfiguration {
 
     @Bean
     public MultiResourceItemReader<CryptoData> multiResourceItemReader() {
+        CustomMapper.counter=1;
         MultiResourceItemReader<CryptoData> resourceItemReader = new MultiResourceItemReader<CryptoData>();
         String directoryPath = "file:C:/files/*.csv";
         resourceItemReader.setResources(loadResourcesFromDirectory(directoryPath));
@@ -83,10 +84,8 @@ public class BatchConfiguration {
     public FlatFileItemReader<CryptoData> reader() {
         //Create reader instance
         FlatFileItemReader<CryptoData> reader = new FlatFileItemReader<CryptoData>();
-
         //Set number of lines to skips. Use it if file has header rows.
         reader.setLinesToSkip(1);
-
         //Configure how each line will be parsed and mapped to different values
         reader.setLineMapper(new DefaultLineMapper() {
             {
@@ -97,14 +96,12 @@ public class BatchConfiguration {
                     }
                 });
                 //Set values in Employee class
-                setFieldSetMapper(new BeanWrapperFieldSetMapper<CryptoData>() {
-                    {
-                        setTargetType(CryptoData.class);
-                    }
-                });
+                setFieldSetMapper(
+//                        new BeanWrapperFieldSetMapper<CryptoData>() {    {       setTargetType(CryptoData.class);    }    }
+                new CustomMapper()
+                );
             }
         });
         return reader;
     }
-
 }

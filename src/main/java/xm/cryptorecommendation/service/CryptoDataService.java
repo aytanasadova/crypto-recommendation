@@ -1,12 +1,19 @@
 package xm.cryptorecommendation.service;
 
+import org.springframework.http.ResponseEntity;
 import xm.cryptorecommendation.domain.CryptoData;
 
 import java.util.List;
 
 
 public interface CryptoDataService {
-    List<CryptoData> listAll();
 
-    void dropTable();
+    void clear();
+    ResponseEntity<?> listAllWithOldestPrice();
+
+    ResponseEntity<?>  listAllWithNewestPrice();
+
+    ResponseEntity<?> listAllWithMinPrice();
+
+    ResponseEntity<?> listAllWithMaxPrice();
 }

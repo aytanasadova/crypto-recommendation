@@ -22,7 +22,7 @@ public class SwaggerConfiguration {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("sprin-public")
+                .group("crypto-recommendation-methods")
                 .pathsToMatch("/**")
                 .build();
     }

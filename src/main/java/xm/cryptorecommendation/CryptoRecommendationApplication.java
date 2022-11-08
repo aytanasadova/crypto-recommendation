@@ -13,21 +13,21 @@ import org.springframework.scheduling.annotation.Scheduled;
 @SpringBootApplication
 @EnableScheduling
 public class CryptoRecommendationApplication {
-	@Autowired
-	JobLauncher jobLauncher;
-
-	@Autowired
-	Job job;
+//	@Autowired
+//	JobLauncher jobLauncher;
+//
+//	@Autowired
+//	Job job;
 	public static void main(String[] args) {
 		SpringApplication.run(CryptoRecommendationApplication.class, args);
 	}
 
-	@Scheduled(cron = "0 */1 * * * ?")
-	public void perform() throws Exception
-	{
-		JobParameters params = new JobParametersBuilder()
-				.addString("JobID", String.valueOf(System.currentTimeMillis()))
-				.toJobParameters();
-		jobLauncher.run(job, params);
-	}
+//	@Scheduled(cron = "0 */1 * * * ?")
+//	public void perform() throws Exception
+//	{
+//		JobParameters params = new JobParametersBuilder()
+//				.addString("JobID", String.valueOf(System.currentTimeMillis()))
+//				.toJobParameters();
+//		jobLauncher.run(job, params);
+//	}
 }

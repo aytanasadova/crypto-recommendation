@@ -3,6 +3,7 @@ package xm.cryptorecommendation.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,70 +12,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xm.cryptorecommendation.service.CryptoDataService;
 
+@Tag(name="crypto-data")
 @RestController
 @RequestMapping("/crypto-data/")
 public class CryptoDataController {
-@Autowired
+
+    @Autowired
     private CryptoDataService cryptoDataService;
 
-
-
-    @Operation(summary = "Descending sorted list of all the cryptos,comparing the normalized range ", tags = "listCryptoData")
+    @Operation(summary = "List of oldest price for each crypto for the whole month", tags = "crypto-data")
+    @GetMapping("/listAllWithOldestPrice/")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
-            @ApiResponse(responseCode = "404", description = "Not Found!")})
-    @GetMapping("/")
-    public ResponseEntity<?> listAllByNormalizedRange() {
-        return new ResponseEntity<>(cryptoDataService.listAll(), HttpStatus.OK);
+            @ApiResponse(responseCode = "204", description = "No Content!")})
+    public ResponseEntity<?> listAllWithOldestPrice() {
+        return cryptoDataService.listAllWithOldestPrice();
     }
 
-    @Operation(summary = "Calculates min price for whole month ", tags = "getCryptoData")
-    @GetMapping("/price-monthly/min/")
+    @Operation(summary = "List of newest price for each crypto for the whole month", tags = "crypto-data")
+    @GetMapping("/listAllWithNewestPrice/")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
-            @ApiResponse(responseCode = "404", description = "Not Found!")})
-    public ResponseEntity<?> getMinPriceForEachDuringMonth() {
-        return null;
+            @ApiResponse(responseCode = "204", description = "No Content!")})
+    public ResponseEntity<?> listAllWithNewestPrice() {
+        return cryptoDataService.listAllWithNewestPrice();
     }
-
-//    @GetMapping("")
-//    public ResponseEntity<?> getMaxPriceForEachDuringMonth() {
-//        return null;
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<?> getNewestPriceForEachDuringMonth() {
-//        return null;
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<?> getOldestPriceForEachDuringMonth() {
-//        return null;
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<?> getMinPriceForEachDuringMonth(Crypto crypto) {
-//        return null;
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<?> getMaxPriceForEachDuringMonth(Crypto crypto) {
-//        return null;
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<?> getNewestPriceForEachDuringMonth(Crypto crypto) {
-//        return null;
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<?> getOldestPriceForEachDuringMonth(Crypto crypto) {
-//        return null;
-//    }
-//
-//    @GetMapping("")
-//    public ResponseEntity<?> getWithHighestNormalizedRangeByDate(LocalDate date) {
-//        return null;
-//    }
-
+    @Operation(summary = "List of min price for each crypto for the whole month", tags = "crypto-data")
+    @GetMapping("/listAllWithMinPrice/")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success|OK"),
+            @ApiResponse(responseCode = "204", description = "No Content!")})
+    public ResponseEntity<?> listAllWithMinPrice() {
+        return cryptoDataService.listAllWithMinPrice();
+    }
+    @Operation(summary = "List of max price for each crypto for the whole month", tags = "crypto-data")
+    @GetMapping("/listAllWithMaxPrice/")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success|OK"),
+            @ApiResponse(responseCode = "204", description = "No Content!")})
+    public ResponseEntity<?> listAllWithMaxPrice() {
+        return cryptoDataService.listAllWithMaxPrice();
+    }
 }
