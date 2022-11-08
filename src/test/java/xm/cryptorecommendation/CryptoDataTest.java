@@ -1,30 +1,35 @@
 package xm.cryptorecommendation;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import xm.cryptorecommendation.domain.Crypto;
 import xm.cryptorecommendation.domain.CryptoData;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@Ignore
+
 public class CryptoDataTest {
 
-//    private static CryptoData cryptoData;
-//
-//    @BeforeAll
-//    static void intCryptoData() {
-//        cryptoData = new CryptoData(new Crypto(1, "BTC"), 1641009600000L, new BigDecimal(46813.21), "USD");
-//    }
-//
-//    @Test
-//    @Ignore
-//    void shouldPrintCryptoData() {
-//        assertEquals("CryptoData{crypto=Crypto{id=1, name='BTC'}, timestamp=1641009600000, price=46813.2099999999991268850862979888916015625, currency='USD'}", cryptoData.toString());
-//    }
+    private static final CryptoData cryptoData=new CryptoData();
+
+    @BeforeAll
+    static void intCryptoData() {
+        cryptoData.setPrice(new BigDecimal("123124.5353"));
+        cryptoData.setSymbol("BTC");
+        cryptoData.setTimestamp(LocalDateTime.ofInstant(Instant.ofEpochMilli(1641009600000L), TimeZone.getDefault().toZoneId()));
+    }
+    @Test
+
+    void shouldPrintCryptoData() {
+        System.out.println(cryptoData);
+        assertEquals("CryptoData{timestamp=2022-01-01T05:00, price=123124.535300000003189779818058013916015625, symbol='BTC'}", cryptoData.toString());
+    }
+
+
 }

@@ -57,12 +57,13 @@ public class CryptoDataServiceImp implements CryptoDataService {
 
     @Override
     public ResponseEntity<?> getNewestPriceByCryptoName(String name) {
+        System.out.println("88888");
         return generateResponseWithObject(cryptoDataRepository.getNewestPriceByCryptoName(name));
     }
 
     @Override
     public ResponseEntity<?> getByMaxNormalizedPriceByDate(LocalDate date) {
-
+        System.out.println("9999");
         return generateResponseWithObject(cryptoDataRepository.getByMaxNormalizedPriceByDate(date));
     }
 

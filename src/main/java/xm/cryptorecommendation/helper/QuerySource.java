@@ -22,11 +22,11 @@ public class QuerySource {
     public static final String GET_MAX_PRICE_FOR_CRYPTO="SELECT symbol, max(price)  price FROM CRYPTO_DATA  where symbol=? group by symbol;";
 
     public static final String GET_OLDEST_PRICE_FOR_CRYPTO="select d. timestamp, d.symbol, d.price from  crypto_data d  " +
-                                                           "join (SELECT symbol, min(timestamp) timestamp  FROM CRYPTO_DATA  where symbol=? group by symbol ) cc" +
-                                                            "on cc.timestamp=d.timestamp and cc.symbol=d.symbol;";
+                                                           " join (SELECT symbol, min(timestamp) timestamp  FROM CRYPTO_DATA  where symbol=? group by symbol ) cc  " +
+                                                            " on cc.timestamp=d.timestamp and cc.symbol=d.symbol;";
     public static final String GET_NEWEST_PRICE_FOR_CRYPTO="select d. timestamp, d.symbol, d.price from  crypto_data d  " +
                                                             "join (SELECT symbol, max(timestamp) timestamp  FROM CRYPTO_DATA  where symbol=? group by symbol ) cc" +
-                                                            "on cc.timestamp=d.timestamp and cc.symbol=d.symbol;";
+                                                            " on cc.timestamp=d.timestamp and cc.symbol=d.symbol;";
 
     public static final String   LIST_BY_MAX_NORMALIZED_PRICE_BY_DATE=" select (max(price)-min(price))/min(price) price,symbol from crypto_data  where  DATE_TRUNC(DAY, timestamp) =?  group by symbol  order by price desc ";
 

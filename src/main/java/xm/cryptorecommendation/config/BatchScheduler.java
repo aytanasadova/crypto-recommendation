@@ -13,16 +13,13 @@ import xm.cryptorecommendation.service.CryptoDataService;
 public class BatchScheduler {
     @Autowired
     JobLauncher jobLauncher;
-
     @Autowired
     Job job;
-
     @Autowired
     CryptoDataService cryptoDataService;
-//
-//    @Scheduled(cron = "0 */1 * * * ?")
 
-    @Scheduled(cron = "59 * * * * ?")
+    @Scheduled(cron = "0 */1 * * * ?")
+//    @Scheduled(cron = "59 * * * * ?")
     public void perform() throws Exception
     {
         cryptoDataService.clear();

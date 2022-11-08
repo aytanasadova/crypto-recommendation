@@ -5,9 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +15,7 @@ import xm.cryptorecommendation.service.CryptoDataService;
 
 import java.time.LocalDate;
 
-@Tag(name="crypto-data")
+@Tag(name = "crypto-data")
 @RestController
 @RequestMapping("/crypto-data/")
 public class CryptoDataController {
@@ -42,6 +40,7 @@ public class CryptoDataController {
     public ResponseEntity<?> listAllWithNewestPrice() {
         return cryptoDataService.listAllWithNewestPrice();
     }
+
     @Operation(summary = "Min price for each crypto for the whole month", tags = "crypto-data")
     @GetMapping("/listAllWithMinPrice/")
     @ApiResponses(value = {
@@ -50,6 +49,7 @@ public class CryptoDataController {
     public ResponseEntity<?> listAllWithMinPrice() {
         return cryptoDataService.listAllWithMinPrice();
     }
+
     @Operation(summary = "Max price for each crypto for the whole month", tags = "crypto-data")
     @GetMapping("/listAllWithMaxPrice/")
     @ApiResponses(value = {
@@ -70,7 +70,6 @@ public class CryptoDataController {
     }
 
 
-
     @Operation(summary = "Min price for a requested crypto", tags = "crypto-data")
     @GetMapping("/getMinPriceByCryptoName/{name}")
     @ApiResponses(value = {
@@ -88,6 +87,7 @@ public class CryptoDataController {
     public ResponseEntity<?> getMaxPriceByCryptoName(@RequestParam String name) {
         return cryptoDataService.getMaxPriceByCryptoName(name);
     }
+
     @Operation(summary = "Oldest price for a requested crypto", tags = "crypto-data")
     @GetMapping("/getOldestPriceByCryptoName/{name}")
     @ApiResponses(value = {
@@ -106,15 +106,14 @@ public class CryptoDataController {
         return cryptoDataService.getNewestPriceByCryptoName(name);
     }
 
-    @Operation(summary = "The crypto with the highest normalized range for a specific day",description="2022-01-22", tags = "crypto-data")
+    @Operation(summary = "The crypto with the highest normalized range for a specific day", description = "2022-01-22", tags = "crypto-data")
     @GetMapping("/getByMaxNormalizedPrice/date/{date}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
-    public ResponseEntity<?> getByMaxNormalizedPriceByDate( @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)    @RequestParam LocalDate date) {
+    public ResponseEntity<?> getByMaxNormalizedPriceByDate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate date) {
         return cryptoDataService.getByMaxNormalizedPriceByDate(date);
     }
-
 
 
 }

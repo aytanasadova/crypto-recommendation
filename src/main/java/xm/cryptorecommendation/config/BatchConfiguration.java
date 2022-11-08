@@ -10,7 +10,6 @@ import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourc
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.MultiResourceItemReader;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +32,16 @@ public class BatchConfiguration {
     private StepBuilderFactory stepBuilderFactory;
     @Autowired
     DataSource dataSource;
+
+    @Autowired
+    Listener  listener;
     @Bean
     public JdbcBatchItemWriter<CryptoData> writer() {
-        JdbcBatchItemWriter<CryptoData> itemWriter = new JdbcBatchItemWriter<CryptoData>();
+        JdbcBatchItemWriter<CryptoData> itemWriter = new JdbcBatchItemWriter<>();
         itemWriter.setDataSource(dataSource);
-        itemWriter.setSql("INSERT INTO CRYPTO_DATA (timestamp, symbol, price,id) VALUES (:timestamp, :symbol, :price,:id)");
-        itemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<CryptoData>());
+        itemWriter.setSql("INSERT INTO CRYPTO_DATA (timestamp, symbol, price) VALUES (:timestamp, :symbol, :price)");
+        itemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
+        System.out.println("job complatedddddd");
         return itemWriter;
     }
 
@@ -46,7 +49,7 @@ public class BatchConfiguration {
     public Job readCSVFilesJob() {
         return jobBuilderFactory
                 .get("readCSVFilesJob")
-                .incrementer(new RunIdIncrementer())
+                .incrementer(new RunIdIncrementer()).listener(listener)
                 .start(step1())
                 .build();
     }
@@ -61,8 +64,7 @@ public class BatchConfiguration {
 
     @Bean
     public MultiResourceItemReader<CryptoData> multiResourceItemReader() {
-
-        MultiResourceItemReader<CryptoData> resourceItemReader = new MultiResourceItemReader<CryptoData>();
+        MultiResourceItemReader<CryptoData> resourceItemReader = new MultiResourceItemReader<>();
         String directoryPath = "file:C:/files/*.csv";
         resourceItemReader.setResources(loadResourcesFromDirectory(directoryPath));
         resourceItemReader.setDelegate(reader());
@@ -82,25 +84,18 @@ public class BatchConfiguration {
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Bean
     public FlatFileItemReader<CryptoData> reader() {
-        CustomMapper.counter=1;
-        //Create reader instance
-        FlatFileItemReader<CryptoData> reader = new FlatFileItemReader<CryptoData>();
-        //Set number of lines to skips. Use it if file has header rows.
+
+        FlatFileItemReader<CryptoData> reader = new FlatFileItemReader<>();
         reader.setLinesToSkip(1);
-        //Configure how each line will be parsed and mapped to different values
         reader.setLineMapper(new DefaultLineMapper() {
             {
-                //3 columns in each row
                 setLineTokenizer(new DelimitedLineTokenizer() {
                     {
-                        setNames(new String[]{"timestamp", "symbol", "price"});
+                        setNames("timestamp", "symbol", "price");
+//                        setNames(new String[]{"timestamp", "symbol", "price"});
                     }
                 });
-                //Set values in Employee class
-                setFieldSetMapper(
-//                        new BeanWrapperFieldSetMapper<CryptoData>() {    {       setTargetType(CryptoData.class);    }    }
-                new CustomMapper()
-                );
+                setFieldSetMapper(new CustomMapper());
             }
         });
         return reader;
