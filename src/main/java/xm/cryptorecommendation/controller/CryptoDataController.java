@@ -9,11 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xm.cryptorecommendation.domain.Crypto;
 import xm.cryptorecommendation.service.CryptoDataService;
-import xm.cryptorecommendation.service.CryptoDataServiceImp;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/crypto-data/")

@@ -21,7 +21,6 @@ public class CryptoDataRepositoryImpl implements CryptoDataRepository{
         List<CryptoData> c=jdbcTemplate.query("SELECT * FROM CRYPTO_DATA",new BeanPropertyRowMapper<>(CryptoData.class));
         System.out.println("yyyyyyy"+c);
         return   c;
-//        return null;
     }
 
     @Override
