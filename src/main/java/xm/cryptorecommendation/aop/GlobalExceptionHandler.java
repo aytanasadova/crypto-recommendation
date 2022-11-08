@@ -17,17 +17,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = EmptyResultDataAccessException.class)
     public final ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(Exception ex, WebRequest request) {
-        details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse("The record you search for, not found", details);
-        return new ResponseEntity<>(error, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(generateErrorResponse(ex,"The record you search for, not found"), HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler(value = Exception.class)
     public final ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex, WebRequest request) {
-        details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse("An unhandled exception occurred, please contact us", details);
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(generateErrorResponse(ex,"An unhandled exception occurred, please contact us"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    private ErrorResponse generateErrorResponse(Exception ex,String messsage){
+        details.add(ex.getLocalizedMessage());
+        return new ErrorResponse(messsage, details);
+    }
 
 }

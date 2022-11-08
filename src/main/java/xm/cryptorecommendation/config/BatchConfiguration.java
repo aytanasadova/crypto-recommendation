@@ -40,7 +40,6 @@ import java.io.IOException;
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
-
     private final JobBuilderFactory jobBuilderFactory;
     private final  StepBuilderFactory stepBuilderFactory;
     private   final DataSource dataSource;
