@@ -25,9 +25,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(generateErrorResponse(ex,"An unhandled exception occurred, please contact us"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private ErrorResponse generateErrorResponse(Exception ex,String messsage){
+    private ErrorResponse generateErrorResponse(Exception ex,String message){
         details.add(ex.getLocalizedMessage());
-        return new ErrorResponse(messsage, details);
+        return new ErrorResponse(message, details);
     }
 
 }
