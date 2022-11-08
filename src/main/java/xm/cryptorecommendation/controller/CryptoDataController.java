@@ -24,7 +24,7 @@ public class CryptoDataController {
     private CryptoDataService cryptoDataService;
 
     @Operation(summary = "Oldest price for each crypto for the whole month", tags = "crypto-data")
-    @GetMapping("/listAllWithOldestPrice/")
+    @GetMapping("/withOldestPrice/")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -33,7 +33,7 @@ public class CryptoDataController {
     }
 
     @Operation(summary = "Newest price for each crypto for the whole month", tags = "crypto-data")
-    @GetMapping("/listAllWithNewestPrice/")
+    @GetMapping("/withNewestPrice/")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -42,7 +42,7 @@ public class CryptoDataController {
     }
 
     @Operation(summary = "Min price for each crypto for the whole month", tags = "crypto-data")
-    @GetMapping("/listAllWithMinPrice/")
+    @GetMapping("/withMinPrice/")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -51,7 +51,7 @@ public class CryptoDataController {
     }
 
     @Operation(summary = "Max price for each crypto for the whole month", tags = "crypto-data")
-    @GetMapping("/listAllWithMaxPrice/")
+    @GetMapping("/withMaxPrice/")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -61,7 +61,7 @@ public class CryptoDataController {
 
 
     @Operation(summary = "descending sorted list of all the cryptos,comparing the normalized range (i.e. (max-min)/min)", tags = "crypto-data")
-    @GetMapping("/listAllWithNormalizedPrice/")
+    @GetMapping("/withNormalizedPrice/")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -71,7 +71,7 @@ public class CryptoDataController {
 
 
     @Operation(summary = "Min price for a requested crypto", tags = "crypto-data")
-    @GetMapping("/getMinPriceByCryptoName/{name}")
+    @GetMapping("/minPriceByCryptoName/{name}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -80,7 +80,7 @@ public class CryptoDataController {
     }
 
     @Operation(summary = "Max price for a requested crypto", tags = "crypto-data")
-    @GetMapping("/getMaxPriceByCryptoName/{name}")
+    @GetMapping("/maxPriceByCryptoName/{name}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -89,7 +89,7 @@ public class CryptoDataController {
     }
 
     @Operation(summary = "Oldest price for a requested crypto", tags = "crypto-data")
-    @GetMapping("/getOldestPriceByCryptoName/{name}")
+    @GetMapping("/oldestPriceByCryptoName/{name}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -98,7 +98,7 @@ public class CryptoDataController {
     }
 
     @Operation(summary = "Newest price for a requested crypto", tags = "crypto-data")
-    @GetMapping("/getNewestPriceByCryptoName/{name}")
+    @GetMapping("/newestPriceByCryptoName/{name}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
@@ -107,7 +107,7 @@ public class CryptoDataController {
     }
 
     @Operation(summary = "The crypto with the highest normalized range for a specific day", description = "2022-01-22", tags = "crypto-data")
-    @GetMapping("/getByMaxNormalizedPrice/date/{date}")
+    @GetMapping("/byMaxNormalizedPrice/date/{date}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})

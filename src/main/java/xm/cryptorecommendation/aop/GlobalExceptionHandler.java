@@ -14,7 +14,7 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value =EmptyResultDataAccessException.class)
+    @ExceptionHandler(value= EmptyResultDataAccessException.class)
     public final ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(Exception ex, WebRequest request) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
