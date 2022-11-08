@@ -23,10 +23,14 @@ import xm.cryptorecommendation.domain.CryptoData;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
+
+    private static final Logger logger = LogManager.getLogger(BatchConfiguration.class);
+
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
     @Autowired
@@ -40,15 +44,12 @@ public class BatchConfiguration {
     @Value("${csv.resource}")
     private String csvResource;
 
-
-
     @Bean
     public JdbcBatchItemWriter<CryptoData> writer() {
         JdbcBatchItemWriter<CryptoData> itemWriter = new JdbcBatchItemWriter<>();
         itemWriter.setDataSource(dataSource);
         itemWriter.setSql("INSERT INTO CRYPTO_DATA (timestamp, symbol, price) VALUES (:timestamp, :symbol, :price)");
         itemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
-        System.out.println("job complatedddddd");
         return itemWriter;
     }
 
