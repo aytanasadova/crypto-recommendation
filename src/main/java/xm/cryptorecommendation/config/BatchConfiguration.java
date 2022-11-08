@@ -111,7 +111,6 @@ public class BatchConfiguration {
                 setLineTokenizer(new DelimitedLineTokenizer() {
                     {
                         setNames("timestamp", "symbol", "price");
-//                        setNames(new String[]{"timestamp", "symbol", "price"});
                     }
                 });
                 setFieldSetMapper(new CustomMapper());

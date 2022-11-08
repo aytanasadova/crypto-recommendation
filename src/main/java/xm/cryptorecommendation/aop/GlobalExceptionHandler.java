@@ -13,17 +13,17 @@ import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    private List<String> details=new ArrayList<>();
 
-    @ExceptionHandler(value= EmptyResultDataAccessException.class)
+    @ExceptionHandler(value = EmptyResultDataAccessException.class)
     public final ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(Exception ex, WebRequest request) {
-        List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         ErrorResponse error = new ErrorResponse("The record you search for, not found", details);
         return new ResponseEntity<>(error, HttpStatus.NO_CONTENT);
     }
+
     @ExceptionHandler(value = Exception.class)
     public final ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex, WebRequest request) {
-        List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         ErrorResponse error = new ErrorResponse("An unhandled exception occurred, please contact us", details);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
