@@ -32,25 +32,19 @@ import java.io.IOException;
  * <b>Note:</b> Giving proper comments in your program makes it more
  * user friendly and it is assumed as a high quality code.
  *
- * @author  Zara Ali
+ * @author  Aytan Asadova
  * @version 1.0
- * @since   2014-03-31
+ * @since   2022-11-08
  */
 
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
 
-
     private final JobBuilderFactory jobBuilderFactory;
-
     private final  StepBuilderFactory stepBuilderFactory;
-
     private   final DataSource dataSource;
-
-
     private final  Listener listener;
-
     @Value("${csv.resource}")
     private String csvResource;
 

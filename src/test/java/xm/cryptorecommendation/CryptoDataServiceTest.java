@@ -17,15 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @SpringBootTest
 @Ignore
 public class CryptoDataServiceTest {
-
     @Autowired
     private CryptoDataService cryptoDataService;
-
-
     @Test
     void savedUserHasRegistrationDate() {
         assertNotEquals(null,cryptoDataService.getByMaxNormalizedPriceByDate(LocalDate.now()).getBody());
     }
-
 
 }
