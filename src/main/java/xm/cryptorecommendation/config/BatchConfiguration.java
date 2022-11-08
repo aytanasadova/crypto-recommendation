@@ -13,6 +13,7 @@ import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -34,7 +35,13 @@ public class BatchConfiguration {
     DataSource dataSource;
 
     @Autowired
-    Listener  listener;
+    Listener listener;
+
+    @Value("${csv.resource}")
+    private String csvResource;
+
+
+
     @Bean
     public JdbcBatchItemWriter<CryptoData> writer() {
         JdbcBatchItemWriter<CryptoData> itemWriter = new JdbcBatchItemWriter<>();
@@ -65,17 +72,17 @@ public class BatchConfiguration {
     @Bean
     public MultiResourceItemReader<CryptoData> multiResourceItemReader() {
         MultiResourceItemReader<CryptoData> resourceItemReader = new MultiResourceItemReader<>();
-        String directoryPath = "file:C:/files/*.csv";
-        resourceItemReader.setResources(loadResourcesFromDirectory(directoryPath));
-        resourceItemReader.setDelegate(reader());
+            resourceItemReader.setResources(loadResourcesFromDirectory());
+            resourceItemReader.setDelegate(reader());
+            resourceItemReader.setStrict(true);
         return resourceItemReader;
     }
 
-    private Resource[] loadResourcesFromDirectory(String directoryPath) {
+    private Resource[] loadResourcesFromDirectory() {
         ClassLoader cl = this.getClass().getClassLoader();
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
         try {
-            return resolver.getResources(directoryPath);
+            return resolver.getResources(csvResource);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
