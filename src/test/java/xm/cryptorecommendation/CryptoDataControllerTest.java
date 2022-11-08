@@ -15,17 +15,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-//@WebMvcTest(CryptoDataControllerTest.class)
-//
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CryptoDataControllerTest {
-
     @Autowired
     private MockMvc mvc;
-
     String basePath="/crypto-data/";
-
 
     @Test
     public void listAllWithOldestPrice() throws Exception
@@ -42,7 +37,68 @@ public class CryptoDataControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").isNotEmpty());;
     }
 
+    @Test
+    public void listAllWithNewestPrice() throws Exception
+    {
+        String uri =  basePath+"/withNewestPrice/";
+        mvc.perform( MockMvcRequestBuilders
+                        .get(uri)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").isNotEmpty())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").isNotEmpty());;
+    }
 
 
+
+    @Test
+    public void listAllWithMinPrice() throws Exception
+    {
+        String uri =  basePath+"/withMinPrice/";
+        mvc.perform( MockMvcRequestBuilders
+                        .get(uri)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").isNotEmpty())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").isNotEmpty());;
+    }
+
+
+    @Test
+    public void listAllWithMaxPrice() throws Exception
+    {
+        String uri =  basePath+"/withMaxPrice/";
+        mvc.perform( MockMvcRequestBuilders
+                        .get(uri)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").isNotEmpty())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").isNotEmpty());;
+    }
+
+
+    @Test
+    public void listAllWithNormalizedPrice() throws Exception
+    {
+        String uri =  basePath+"/withNormalizedPrice/";
+        mvc.perform( MockMvcRequestBuilders
+                        .get(uri)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").isNotEmpty())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").isNotEmpty());;
+    }
 
 }
