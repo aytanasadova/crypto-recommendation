@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface CryptoDataRepository {
 
+
+    void dropTable();
+
     List<CryptoData> listAll();
 
     //  Exposes an endpoint that will return a descending sorted list of all the cryptos,

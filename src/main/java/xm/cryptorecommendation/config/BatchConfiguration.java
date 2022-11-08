@@ -26,7 +26,7 @@ import java.io.IOException;
 
 @Configuration
 @EnableBatchProcessing
-public class BatchConfig {
+public class BatchConfiguration {
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
     @Autowired

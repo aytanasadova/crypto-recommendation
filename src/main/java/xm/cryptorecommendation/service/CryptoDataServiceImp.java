@@ -15,4 +15,8 @@ public class CryptoDataServiceImp implements CryptoDataService {
     public List<CryptoData> listAll() {
         return cryptoDataRepository.listAll();
     }
+    public  void dropTable(){
+        cryptoDataRepository.dropTable();
+    }
+
 }
