@@ -19,6 +19,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import xm.cryptorecommendation.domain.CryptoData;
+import xm.cryptorecommendation.listener.CustomJobExecutionListener;
+import xm.cryptorecommendation.mapper.CustomFieldSetMapper;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -37,7 +39,7 @@ public class BatchConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final DataSource dataSource;
-    private final Listener listener;
+    private final CustomJobExecutionListener listener;
     @Value("${csv.resource}")
     private String csvResource;
 
@@ -48,7 +50,7 @@ public class BatchConfiguration {
      * @param dataSource
      * @param listener
      */
-    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, DataSource dataSource, Listener listener) {
+    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, DataSource dataSource, CustomJobExecutionListener listener) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
         this.dataSource = dataSource;
@@ -122,7 +124,7 @@ public class BatchConfiguration {
                         setNames("timestamp", "symbol", "price");
                     }
                 });
-                setFieldSetMapper(new CustomMapper());
+                setFieldSetMapper(new CustomFieldSetMapper());
             }
         });
         return reader;

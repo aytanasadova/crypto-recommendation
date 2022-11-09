@@ -1,9 +1,10 @@
-package xm.cryptorecommendation.config;
+package xm.cryptorecommendation.listener;
 
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.stereotype.Component;
+import xm.cryptorecommendation.service.CacheService;
 
 
 /**
@@ -12,9 +13,9 @@ import org.springframework.stereotype.Component;
  * @since 2022-11-08
  */
 @Component
-public class Listener extends JobExecutionListenerSupport {
-   private  final  CacheService cacheService;
-    public Listener(CacheService cacheService) {
+public class CustomJobExecutionListener extends JobExecutionListenerSupport {
+   private  final CacheService cacheService;
+    public CustomJobExecutionListener(CacheService cacheService) {
         this.cacheService = cacheService;
     }
 

@@ -11,6 +11,13 @@ import xm.cryptorecommendation.service.CryptoDataService;
 
 import java.time.LocalDate;
 
+
+/**
+ * Class contains methods with and without interval search
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
 @Tag(name = "crypto-data")
 @RestController
 @RequestMapping("/crypto-data/")

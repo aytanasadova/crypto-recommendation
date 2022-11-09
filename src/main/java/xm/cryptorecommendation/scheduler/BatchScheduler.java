@@ -1,4 +1,4 @@
-package xm.cryptorecommendation.config;
+package xm.cryptorecommendation.scheduler;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;

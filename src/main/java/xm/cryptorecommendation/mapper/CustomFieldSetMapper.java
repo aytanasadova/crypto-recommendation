@@ -1,4 +1,4 @@
-package xm.cryptorecommendation.config;
+package xm.cryptorecommendation.mapper;
 
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
@@ -14,7 +14,7 @@ import java.util.TimeZone;
  * @version 1.0
  * @since 2022-11-08
  */
-public class CustomMapper implements FieldSetMapper<CryptoData> {
+public class CustomFieldSetMapper implements FieldSetMapper<CryptoData> {
 
     /**
      * To map fields

@@ -1,4 +1,4 @@
-package xm.cryptorecommendation.config;
+package xm.cryptorecommendation.service;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
