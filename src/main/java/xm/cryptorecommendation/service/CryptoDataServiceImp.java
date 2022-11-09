@@ -22,6 +22,10 @@ public class CryptoDataServiceImp implements CryptoDataService {
     }
 
     @Override
+    public ResponseEntity<?> listAllWithOldestPrice(LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithList(cryptoDataRepository.listAllWithOldestPrice(beginInterval,endInterval));
+    }
+    @Override
     public ResponseEntity<?> listAllWithOldestPrice() {
         return generateResponseWithList(cryptoDataRepository.listAllWithOldestPrice());
     }
@@ -30,47 +34,73 @@ public class CryptoDataServiceImp implements CryptoDataService {
     public ResponseEntity<?> listAllWithNewestPrice() {
         return generateResponseWithList(cryptoDataRepository.listAllWithNewestPrice());
     }
-
+    @Override
+    public ResponseEntity<?> listAllWithNewestPrice(LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithList(cryptoDataRepository.listAllWithNewestPrice(beginInterval,endInterval));
+    }
     @Override
     public ResponseEntity<?> listAllWithMinPrice() {
         return generateResponseWithList(cryptoDataRepository.listAllWithMinPrice());
+    }
+    @Override
+    public ResponseEntity<?> listAllWithMinPrice(LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithList(cryptoDataRepository.listAllWithMinPrice(beginInterval,endInterval));
     }
 
     @Override
     public ResponseEntity<?> listAllWithMaxPrice() {
         return generateResponseWithList(cryptoDataRepository.listAllWithMaxPrice());
     }
-
+    @Override
+    public ResponseEntity<?> listAllWithMaxPrice(LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithList(cryptoDataRepository.listAllWithMaxPrice(beginInterval,endInterval));
+    }
     @Override
     public ResponseEntity<?> listAllWithNormalizedPrice() {
         return generateResponseWithList(cryptoDataRepository.listAllWithNormalizedPrice());
     }
 
+    @Override
+    public ResponseEntity<?> listAllWithNormalizedPrice(LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithList(cryptoDataRepository.listAllWithNormalizedPrice(beginInterval,endInterval));
+    }
 
     @Override
     public ResponseEntity<?> getMinPriceByCryptoName(String name) {
         return generateResponseWithObject(cryptoDataRepository.getMinPriceByCryptoName(name));
     }
-
+    @Override
+    public ResponseEntity<?> getMinPriceByCryptoName(String name,LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithObject(cryptoDataRepository.getMinPriceByCryptoName(name,beginInterval,endInterval));
+    }
     @Override
     public ResponseEntity<?> getMaxPriceByCryptoName(String name) {
         return generateResponseWithObject(cryptoDataRepository.getMaxPriceByCryptoName(name));
     }
-
+    @Override
+    public ResponseEntity<?> getMaxPriceByCryptoName(String name,LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithObject(cryptoDataRepository.getMaxPriceByCryptoName(name,beginInterval,endInterval));
+    }
     @Override
     public ResponseEntity<?> getOldestPriceByCryptoName(String name) {
         return generateResponseWithObject(cryptoDataRepository.getOldestPriceByCryptoName(name));
     }
+    @Override
+    public ResponseEntity<?> getOldestPriceByCryptoName(String name,LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithObject(cryptoDataRepository.getOldestPriceByCryptoName(name,beginInterval,endInterval));
+    }
 
     @Override
     public ResponseEntity<?> getNewestPriceByCryptoName(String name) {
-        System.out.println("88888");
         return generateResponseWithObject(cryptoDataRepository.getNewestPriceByCryptoName(name));
+    }
+    @Override
+    public ResponseEntity<?> getNewestPriceByCryptoName(String name,LocalDate beginInterval,LocalDate endInterval) {
+        return generateResponseWithObject(cryptoDataRepository.getNewestPriceByCryptoName(name,beginInterval,endInterval));
     }
 
     @Override
     public ResponseEntity<?> getByMaxNormalizedPriceByDate(LocalDate date) {
-        System.out.println("9999");
         return generateResponseWithObject(cryptoDataRepository.getByMaxNormalizedPriceByDate(date));
     }
 

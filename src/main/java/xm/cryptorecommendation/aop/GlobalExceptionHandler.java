@@ -13,7 +13,7 @@ import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private List<String> details=new ArrayList<>();
+
 
     @ExceptionHandler(value = EmptyResultDataAccessException.class)
     public final ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(Exception ex, WebRequest request) {
@@ -26,6 +26,8 @@ public class GlobalExceptionHandler {
     }
 
     private ErrorResponse generateErrorResponse(Exception ex,String message){
+        System.out.println(ex.getLocalizedMessage());
+        List<String> details=new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         return new ErrorResponse(message, details);
     }
