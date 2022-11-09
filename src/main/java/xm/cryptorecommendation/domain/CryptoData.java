@@ -4,7 +4,11 @@ package xm.cryptorecommendation.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
-
+/**
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
 public class CryptoData {
 
     private LocalDateTime timestamp;

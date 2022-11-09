@@ -7,7 +7,11 @@ import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
+/**
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
 @Configuration
 public class SwaggerConfiguration {
 
@@ -18,7 +22,6 @@ public class SwaggerConfiguration {
                 .pathsToMatch("/**")
                 .build();
     }
-
 
     @Bean
     public OpenAPI springShopOpenAPI() {

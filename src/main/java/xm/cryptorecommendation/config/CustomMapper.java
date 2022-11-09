@@ -9,11 +9,20 @@ import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 
+/**
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
 public class CustomMapper implements FieldSetMapper<CryptoData> {
 
+    /**
+     * To map fields
+     * @param fieldSet the {@link FieldSet} to map
+     * @return
+     */
     @Override
     public CryptoData mapFieldSet(FieldSet fieldSet)   {
-
         CryptoData cryptoData = new CryptoData();
         cryptoData.setPrice(fieldSet.readBigDecimal("price"));
         cryptoData.setSymbol(fieldSet.readString("symbol"));

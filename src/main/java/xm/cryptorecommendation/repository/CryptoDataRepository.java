@@ -5,7 +5,11 @@ import xm.cryptorecommendation.domain.CryptoData;
 import java.time.LocalDate;
 import java.util.List;
 
-
+/**
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
 public interface CryptoDataRepository {
 
     void clear();

@@ -24,29 +24,30 @@ import javax.sql.DataSource;
 import java.io.IOException;
 
 /**
- * <h1>Add Two Numbers!</h1>
- * The AddNum program implements an application that
- * simply adds two given integer numbers and Prints
- * the output on the screen.
- * <p>
- * <b>Note:</b> Giving proper comments in your program makes it more
- * user friendly and it is assumed as a high quality code.
- *
- * @author  Aytan Asadova
+ * <h1>Batching configurations</h1>
+ * @see <a href="https://spring.io/projects/spring-batch">Spring batch</a>
+ * @author Aytan Asadova
  * @version 1.0
- * @since   2022-11-08
+ * @since 2022-11-08
  */
 
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
-    private final  StepBuilderFactory stepBuilderFactory;
-    private   final DataSource dataSource;
-    private final  Listener listener;
+    private final StepBuilderFactory stepBuilderFactory;
+    private final DataSource dataSource;
+    private final Listener listener;
     @Value("${csv.resource}")
     private String csvResource;
 
+    /**
+     * Injection of necessary dependencies
+     * @param jobBuilderFactory
+     * @param stepBuilderFactory
+     * @param dataSource
+     * @param listener
+     */
     public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, DataSource dataSource, Listener listener) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
@@ -54,6 +55,10 @@ public class BatchConfiguration {
         this.listener = listener;
     }
 
+    /**
+     * Writes data that gathered from csv files to database
+     * @return
+     */
     @Bean
     public JdbcBatchItemWriter<CryptoData> writer() {
         JdbcBatchItemWriter<CryptoData> itemWriter = new JdbcBatchItemWriter<>();
@@ -63,15 +68,26 @@ public class BatchConfiguration {
         return itemWriter;
     }
 
+    /**
+     * reader: The ItemReader that provides items for processing.
+     * @return
+     */
     @Bean
-    public Job readCSVFilesJob() {
+    public Job readFromCSVFile() {
         return jobBuilderFactory
-                .get("readCSVFilesJob")
+                .get("readFromCSVFile")
                 .incrementer(new RunIdIncrementer()).listener(listener)
                 .start(step1())
                 .build();
     }
 
+    /**
+     * Domain object that encapsulates an independent, sequential phase of a batch job
+     * and contains all the information necessary to define and control the actual batch processing.
+     * To aim this step is load data from a file into the database
+     *
+     * @return
+     */
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1").<CryptoData, CryptoData>chunk(100)
@@ -80,26 +96,20 @@ public class BatchConfiguration {
                 .build();
     }
 
+    /**
+     * Reads from multiple csv files
+     * In case of directory not exists, this will be an error state
+     * @return
+     */
     @Bean
     public MultiResourceItemReader<CryptoData> multiResourceItemReader() {
         MultiResourceItemReader<CryptoData> resourceItemReader = new MultiResourceItemReader<>();
-            resourceItemReader.setResources(loadResourcesFromDirectory());
-            resourceItemReader.setDelegate(reader());
-            resourceItemReader.setStrict(true);
+        resourceItemReader.setResources(loadResourcesFromDirectory());
+        resourceItemReader.setDelegate(reader());
+        resourceItemReader.setStrict(true);
         return resourceItemReader;
     }
 
-    private Resource[] loadResourcesFromDirectory() {
-        ClassLoader cl = this.getClass().getClassLoader();
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
-        try {
-            return resolver.getResources(csvResource);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @SuppressWarnings({"rawtypes", "unchecked"})
     @Bean
     public FlatFileItemReader<CryptoData> reader() {
 
@@ -116,5 +126,19 @@ public class BatchConfiguration {
             }
         });
         return reader;
+    }
+
+    /**
+     * Private method to load files from resource
+     * @return
+     */
+    private Resource[] loadResourcesFromDirectory() {
+        ClassLoader cl = this.getClass().getClassLoader();
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
+        try {
+            return resolver.getResources(csvResource);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

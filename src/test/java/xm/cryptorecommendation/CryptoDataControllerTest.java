@@ -11,10 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -70,7 +67,6 @@ public class CryptoDataControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[*].symbol").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").isNotEmpty());
-        ;
     }
 
 

@@ -8,10 +8,14 @@ import xm.cryptorecommendation.repository.CryptoDataRepository;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
 @Service
 public class CryptoDataServiceImp implements CryptoDataService {
-
-    private  final  CryptoDataRepository cryptoDataRepository;
+    private final CryptoDataRepository cryptoDataRepository;
 
     public CryptoDataServiceImp(CryptoDataRepository cryptoDataRepository) {
         this.cryptoDataRepository = cryptoDataRepository;

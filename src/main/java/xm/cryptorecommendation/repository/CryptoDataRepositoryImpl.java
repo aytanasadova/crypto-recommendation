@@ -9,9 +9,14 @@ import xm.cryptorecommendation.helper.QuerySource;
 import java.time.LocalDate;
 import java.util.List;
 
+
+/**
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
 @Repository
 public class CryptoDataRepositoryImpl implements CryptoDataRepository {
-
 
     private  final  JdbcTemplate jdbcTemplate;
 

@@ -2,8 +2,12 @@ package xm.cryptorecommendation.domain;
 
 import java.util.List;
 
+/**
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
 public class ErrorResponse {
-
     private String message;
     private List<String> details;
 

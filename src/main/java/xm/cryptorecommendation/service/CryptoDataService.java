@@ -6,7 +6,12 @@ import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 
-@CacheConfig(cacheNames="CryptoDataServiceCache")
+/**
+ * @author Aytan Asadova
+ * @version 1.0
+ * @since 2022-11-08
+ */
+@CacheConfig(cacheNames = "CryptoDataServiceCache")
 @Cacheable
 public interface CryptoDataService {
 
@@ -30,6 +35,6 @@ public interface CryptoDataService {
 
     ResponseEntity<?> getNewestPriceByCryptoName(String name);
 
-    ResponseEntity<?>  getByMaxNormalizedPriceByDate(LocalDate date);
+    ResponseEntity<?> getByMaxNormalizedPriceByDate(LocalDate date);
 
 }
