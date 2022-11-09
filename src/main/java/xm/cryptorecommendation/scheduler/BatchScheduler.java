@@ -11,7 +11,6 @@ import xm.cryptorecommendation.service.CryptoDataService;
 
 /**
  * <h1>Batch scheduler configurations</h1>
- * @see <a href="https://spring.io/projects/spring-batch">Spring batch</a>
  * @author Aytan Asadova
  * @version 1.0
  * @since 2022-11-08
@@ -38,7 +37,7 @@ public class BatchScheduler {
      * Cron job that clears database table and reload data into it
      * @throws Exception
      */
-    @Scheduled(cron = "0 */1 * * * ?")
+    @Scheduled(cron = "${batch.job.cron}")
     public void perform() throws Exception {
         cryptoDataService.clear();
         JobParameters params = new JobParametersBuilder()

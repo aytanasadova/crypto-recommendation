@@ -3,7 +3,6 @@ package xm.cryptorecommendation.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ import java.time.LocalDate;
  * @version 1.0
  * @since 2022-11-08
  */
-@Tag(name = "crypto-data")
 @RestController
 @RequestMapping("/crypto-data/")
 public class CryptoDataController {
@@ -38,7 +36,7 @@ public class CryptoDataController {
         return cryptoDataService.listAllWithOldestPrice();
     }
 
-    @Operation(summary = "Oldest price for each crypto for the interval", tags = "crypto-data")
+    @Operation(summary = "Oldest price for each crypto for the interval", tags = "crypto-data-with-interval")
     @GetMapping("/withOldestPrice/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
@@ -57,7 +55,7 @@ public class CryptoDataController {
         return cryptoDataService.listAllWithNewestPrice();
     }
 
-    @Operation(summary = "Newest price for each crypto for the interval", tags = "crypto-data")
+    @Operation(summary = "Newest price for each crypto for the interval", tags = "crypto-data-with-interval")
     @GetMapping("/withNewestPrice/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
@@ -68,7 +66,7 @@ public class CryptoDataController {
     }
 
 
-    @Operation(summary = "Min price for each crypto for the interval", tags = "crypto-data")
+    @Operation(summary = "Min price for each crypto for the interval", tags = "crypto-data-with-interval")
     @GetMapping("/withMinPrice/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
@@ -97,7 +95,7 @@ public class CryptoDataController {
         return cryptoDataService.listAllWithMaxPrice();
     }
 
-    @Operation(summary = "Max price for each crypto for  interval", tags = "crypto-data")
+    @Operation(summary = "Max price for each crypto for  interval", tags = "crypto-data-with-interval")
     @GetMapping("/withMaxPrice/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
@@ -117,7 +115,7 @@ public class CryptoDataController {
         return cryptoDataService.listAllWithNormalizedPrice();
     }
 
-    @Operation(summary = "Descending sorted list of all the cryptos,comparing the normalized range (i.e. (max-min)/min) for the interval", tags = "crypto-data")
+    @Operation(summary = "Descending sorted list of all the cryptos,comparing the normalized range (i.e. (max-min)/min) for the interval", tags = "crypto-data-with-interval")
     @GetMapping("/withNormalizedPrice/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
@@ -136,7 +134,7 @@ public class CryptoDataController {
     public ResponseEntity<?> getMinPriceByCryptoName(@PathVariable String name) {
         return cryptoDataService.getMinPriceByCryptoName(name);
     }
-    @Operation(summary = "Min price for a requested crypto for the interval", tags = "crypto-data")
+    @Operation(summary = "Min price for a requested crypto for the interval", tags = "crypto-data-with-interval")
     @GetMapping("/minPriceByCryptoName/{name}/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
@@ -155,7 +153,7 @@ public class CryptoDataController {
     public ResponseEntity<?> getMaxPriceByCryptoName(@PathVariable String name) {
         return cryptoDataService.getMaxPriceByCryptoName(name);
     }
-    @Operation(summary = "Max price for a requested crypto for the interval", tags = "crypto-data")
+    @Operation(summary = "Max price for a requested crypto for the interval", tags = "crypto-data-with-interval")
     @GetMapping("/maxPriceByCryptoName/{name}/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
@@ -173,7 +171,7 @@ public class CryptoDataController {
     public ResponseEntity<?> getOldestPriceByCryptoName(@PathVariable String name) {
         return cryptoDataService.getOldestPriceByCryptoName(name);
     }
-    @Operation(summary = "Oldest price for a requested crypto for the interval", tags = "crypto-data")
+    @Operation(summary = "Oldest price for a requested crypto for the interval", tags = "crypto-data-with-interval")
     @GetMapping("/oldestPriceByCryptoName/{name}/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
@@ -192,7 +190,7 @@ public class CryptoDataController {
     public ResponseEntity<?> getNewestPriceByCryptoName(@PathVariable String name) {
         return cryptoDataService.getNewestPriceByCryptoName(name);
     }
-    @Operation(summary = "Newest price for a requested crypto for the interval", tags = "crypto-data")
+    @Operation(summary = "Newest price for a requested crypto for the interval", tags = "crypto-data-with-interval")
     @GetMapping("/newestPriceByCryptoName/{name}/{beginInterval}/{endInterval}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
