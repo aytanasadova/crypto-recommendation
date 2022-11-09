@@ -22,7 +22,6 @@ public class SwaggerConfiguration {
                 .pathsToMatch("/**")
                 .build();
     }
-
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()
@@ -31,6 +30,8 @@ public class SwaggerConfiguration {
                         .version("v1")
                         .license(new License().name("XM-Big, Established and Experienced").url("https://www.xm.com/")));
     }
+
+
 
 
 }

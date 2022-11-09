@@ -20,6 +20,7 @@ import xm.cryptorecommendation.service.CryptoDataService;
  * @version 1.0
  * @since 2022-11-08
  */
+
 @Component
 public class BatchScheduler {
     private final JobLauncher jobLauncher;
