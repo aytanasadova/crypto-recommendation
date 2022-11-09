@@ -41,8 +41,6 @@ public class CryptoDataRepositoryTest {
         cryptoData.setPrice(new BigDecimal("123124.5353"));
         cryptoData.setSymbol("BTC");
         cryptoData.setTimestamp(LocalDateTime.ofInstant(Instant.ofEpochMilli(1641009600000L), TimeZone.getDefault().toZoneId()));
-
-
         cryptoDataList=new ArrayList<>();
         cryptoDataList.add(cryptoData);
     }
@@ -69,9 +67,12 @@ public class CryptoDataRepositoryTest {
                 .willReturn(cryptoDataList);
         // when
         List<CryptoData> resultList = cryptoDataRepository.listAllWithOldestPrice(LocalDate.of(2020, 11, 11), LocalDate.of(2023,1,1));
+
         // then
         assertThat(resultList).isNotNull();
         assertThat(resultList.size()).isEqualTo(cryptoDataList.size());
         assertThat(resultList).isInstanceOf(ArrayList.class);
     }
+
+
 }

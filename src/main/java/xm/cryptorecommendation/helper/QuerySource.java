@@ -46,7 +46,6 @@ public class QuerySource {
             "         where   DATE_TRUNC(month, d.TIMESTAMP)> ?  and  DATE_TRUNC(month, d.TIMESTAMP)< ?;";
 
 
-
     public static final String LIST_ALL_WITH_MAX_PRICE_BY_INTERVAL = "SELECT symbol, max(price)  price FROM CRYPTO_DATA d where   DATE_TRUNC(month, d.TIMESTAMP)> ?  and  DATE_TRUNC(month, d.TIMESTAMP)< ? group by symbol ;";
 
     public static final String LIST_ALL_WITH_MIN_PRICE_BY_INTERVAL = "SELECT symbol, min(price)  price FROM CRYPTO_DATA  d where   DATE_TRUNC(month, d.TIMESTAMP)> ?  and  DATE_TRUNC(month, d.TIMESTAMP)< ? group by symbol ;";
@@ -64,7 +63,6 @@ public class QuerySource {
     public static final String GET_NEWEST_PRICE_FOR_CRYPTO_BY_INTERVAL = "select d. timestamp, d.symbol, d.price from  crypto_data d  " +
             " join (SELECT symbol, max(timestamp) timestamp  FROM CRYPTO_DATA  where symbol=?   and   DATE_TRUNC(month,  TIMESTAMP)> ?  and  DATE_TRUNC(month,  TIMESTAMP)< ? group by symbol ) cc" +
             " on cc.timestamp=d.timestamp and cc.symbol=d.symbol;";
-
 
 
 }

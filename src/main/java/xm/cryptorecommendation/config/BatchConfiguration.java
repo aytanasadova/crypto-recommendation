@@ -88,7 +88,7 @@ public class BatchConfiguration {
      * and contains all the information necessary to define and control the actual batch processing.
      * To aim this step is load data from a file into the database
      *
-     * @return
+     * @return Step
      */
     @Bean
     public Step step1() {
@@ -119,10 +119,7 @@ public class BatchConfiguration {
         reader.setLinesToSkip(1);
         reader.setLineMapper(new DefaultLineMapper() {
             {
-                setLineTokenizer(new DelimitedLineTokenizer() {
-                    {
-                        setNames("timestamp", "symbol", "price");
-                    }
+                setLineTokenizer(new DelimitedLineTokenizer() {   {    setNames("timestamp", "symbol", "price");     }
                 });
                 setFieldSetMapper(new CustomFieldSetMapper());
             }
@@ -136,9 +133,8 @@ public class BatchConfiguration {
      */
     private Resource[] loadResourcesFromDirectory() {
         ClassLoader cl = this.getClass().getClassLoader();
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(cl);
         try {
-            return resolver.getResources(csvResource);
+            return  new PathMatchingResourcePatternResolver(cl).getResources(csvResource);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

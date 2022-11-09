@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public interface CryptoDataService {
 
     void clear();
-
     ResponseEntity<?> listAllWithOldestPrice();
     ResponseEntity<?> listAllWithOldestPrice(LocalDate beginInterval,LocalDate endInterval);
     ResponseEntity<?> listAllWithNewestPrice();

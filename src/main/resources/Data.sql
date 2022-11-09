@@ -8,7 +8,7 @@ DROP TABLE CRYPTO_DATA IF EXISTS;
 
 CREATE TABLE CRYPTO_DATA  (
 --  ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY
-    id int,
+  id int,
   timestamp timestamp,
   symbol VARCHAR(10),
   price NUMERIC(10, 2)
