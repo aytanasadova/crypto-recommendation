@@ -101,4 +101,32 @@ public class CryptoDataControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[*].price").isNotEmpty());;
     }
 
+
+    @Test
+    public void shouldSuccessGetMinPriceByCryptoName() throws Exception
+    {
+        String uri =  basePath+"/minPriceByCryptoName/{name}";
+        mvc.perform( MockMvcRequestBuilders
+                        .get(uri, "BTC")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.symbol").value("BTC"));
+    }
+
+
+    @Test
+    public void shouldFailGetMinPriceByCryptoName() throws Exception
+    {
+        String uri =  basePath+"/minPriceByCryptoName/{name}";
+
+        mvc.perform( MockMvcRequestBuilders
+                        .get(uri, "BTCd")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+    }
+
+
 }

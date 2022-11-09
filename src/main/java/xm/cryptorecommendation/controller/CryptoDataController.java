@@ -6,10 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xm.cryptorecommendation.service.CryptoDataService;
 
 import java.time.LocalDate;
@@ -77,7 +74,7 @@ public class CryptoDataController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
-    public ResponseEntity<?> getMinPriceByCryptoName(@RequestParam String name) {
+    public ResponseEntity<?> getMinPriceByCryptoName(@PathVariable String name) {
         return cryptoDataService.getMinPriceByCryptoName(name);
     }
 
@@ -86,7 +83,7 @@ public class CryptoDataController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
-    public ResponseEntity<?> getMaxPriceByCryptoName(@RequestParam String name) {
+    public ResponseEntity<?> getMaxPriceByCryptoName(@PathVariable String name) {
         return cryptoDataService.getMaxPriceByCryptoName(name);
     }
 
@@ -95,7 +92,7 @@ public class CryptoDataController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
-    public ResponseEntity<?> getOldestPriceByCryptoName(@RequestParam String name) {
+    public ResponseEntity<?> getOldestPriceByCryptoName(@PathVariable String name) {
         return cryptoDataService.getOldestPriceByCryptoName(name);
     }
 
@@ -104,7 +101,7 @@ public class CryptoDataController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
-    public ResponseEntity<?> getNewestPriceByCryptoName(@RequestParam String name) {
+    public ResponseEntity<?> getNewestPriceByCryptoName(@PathVariable String name) {
         return cryptoDataService.getNewestPriceByCryptoName(name);
     }
 
@@ -113,7 +110,7 @@ public class CryptoDataController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success|OK"),
             @ApiResponse(responseCode = "204", description = "No Content!")})
-    public ResponseEntity<?> getByMaxNormalizedPriceByDate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam LocalDate date) {
+    public ResponseEntity<?> getByMaxNormalizedPriceByDate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable LocalDate date) {
         return cryptoDataService.getByMaxNormalizedPriceByDate(date);
     }
 
