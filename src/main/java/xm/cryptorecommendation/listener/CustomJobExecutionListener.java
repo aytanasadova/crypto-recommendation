@@ -14,22 +14,30 @@ import xm.cryptorecommendation.service.CacheService;
  */
 @Component
 public class CustomJobExecutionListener extends JobExecutionListenerSupport {
-   private  final CacheService cacheService;
+    private final CacheService cacheService;
+
     public CustomJobExecutionListener(CacheService cacheService) {
         this.cacheService = cacheService;
     }
 
     /**
      * To listen jobs and perform based on statuses
+     *
      * @param jobExecution the current {@link JobExecution}
      */
     @Override
     public void afterJob(JobExecution jobExecution) {
-        if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            cacheService.evictAllCacheValues();
-
+        if (isJobCompleted(jobExecution)) {
+            clearAllCache();
         }
     }
 
+    private boolean isJobCompleted(JobExecution jobExecution) {
+        return jobExecution.getStatus() == BatchStatus.COMPLETED;
+    }
 
+
+    private void clearAllCache(){
+        cacheService.evictAllCacheValues();
+    }
 }

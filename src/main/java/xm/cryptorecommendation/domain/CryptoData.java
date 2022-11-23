@@ -1,6 +1,10 @@
 package xm.cryptorecommendation.domain;
 
 
+
+
+import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -9,6 +13,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2022-11-08
  */
+
 public class CryptoData {
 
     private LocalDateTime timestamp;
@@ -40,6 +45,7 @@ public class CryptoData {
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,6 +53,7 @@ public class CryptoData {
         CryptoData that = (CryptoData) o;
         return getTimestamp().equals(that.getTimestamp()) && getPrice().equals(that.getPrice()) && getSymbol().equals(that.getSymbol());
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(getTimestamp(), getPrice(), getSymbol());
